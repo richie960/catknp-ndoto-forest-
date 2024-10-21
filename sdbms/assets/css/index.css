@@ -1,0 +1,108 @@
+:root {
+    --button-color: rgb(7, 186, 218);
+    --main-text-color: rgb(107, 107, 107);
+    --span-text-color: rgba(28, 138, 172, 0.979);
+}
+
+
+
+
+#this_image{
+    width: 60px;
+    margin-left: 20px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+  }
+
+
+
+
+.body-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.body-container .body-text{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-container .body-text p{
+    color: var(--main-text-color);
+    font-size: calc(10px + 5vw);
+    font-weight: 700;
+}
+
+.body-container .body-text span{
+  overflow: hidden; 
+  border-right: .15em solid orange; 
+  white-space: nowrap; 
+  margin: 0 auto; 
+  animation: 
+    typing 2s steps(20),
+    blink-caret .75s step-end infinite;
+
+    text-align: center;
+    font-size: calc(8px + 3vw);
+    font-weight: 500;
+    color: var(--span-text-color);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 11ch } 
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+
+
+.body-container .body-buttons button{
+    padding: 4px 10px;
+    color: var(--button-color);
+    border-radius: 6px;
+    border-color: var(--button-color);
+    background: none;
+    cursor: pointer;
+    transition: 1s ease;
+}
+
+.body-container .body-buttons button a{
+    text-decoration: none;
+    color: var(--button-color);
+
+}
+
+.body-container .body-buttons button:hover{
+    background: var(--button-color);
+    color: white;
+}
+
+.body-container .body-buttons button:hover a{
+    color: white;
+}
+
+@media(max-width: 600px){
+  .body-container .body-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .body-container .body-buttons button {
+    margin-bottom: 10px;
+  }
+}
+
+
+

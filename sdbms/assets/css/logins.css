@@ -1,0 +1,135 @@
+:root {
+    --button-color: rgb(7, 186, 218);
+    --main-text-color: rgb(107, 107, 107);
+    --span-text-color: rgba(28, 138, 172, 0.979);
+}
+
+.parent-login-container{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(226, 224, 224);
+    overflow-x: hidden;
+}
+
+.login-container{
+    background-color: #fff;
+    border: 1x solid black;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 6px 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.login-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-text h2{
+    color: var(--span-text-color);
+}
+
+.login-text img{
+    width: 100px;
+    background: rgb(233, 230, 230);
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--button-color);
+    transition: .5s ease;
+}
+
+.login-text img:hover{
+    background: var(--button-color);
+}
+
+
+
+
+form{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    
+}
+
+form input {
+    border: none;
+    border-bottom: 2px solid var(--button-color);
+    padding: 6px;
+    margin-bottom: 20px;
+    outline: none;
+    width: 200px;
+    transition: border-bottom-color 1s ease;
+}
+
+form input::placeholder {
+    color: gray;
+}
+
+
+form button{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 15px;
+    border: 2px solid var(--button-color);
+    border-radius: 10px;
+    color: var(--button-color);
+    transition: .5s ease;
+
+}
+
+
+
+#back{
+    text-decoration: none;
+    color: var(--button-color);
+    background: none;
+    border: none;
+}
+
+#back:hover a{
+    color: red;
+}
+
+#back a{
+    text-decoration: none;
+    color: var(--button-color);
+}
+
+form button:hover{
+    color: white;
+    background: var(--button-color);
+}
+
+form button:hover a{
+    color: white;
+}
+
+
+form input:focus {
+    border-bottom-color: orange;
+}
+
+.rotating-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid #ff0000;
+    border-top: 3px solid transparent;
+    animation: rotate 1s linear infinite;
+    margin-top: 20px;
+    display: none;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+

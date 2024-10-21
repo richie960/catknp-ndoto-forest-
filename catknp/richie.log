@@ -1,0 +1,185 @@
+ <script>
+   
+    $(document).ready(function() {
+        $("#add-textbox").click(function() {
+            
+           var textBoxContainer =  $("<div class='textbox-container'></div>");
+           $(".image-container").prepend(textBoxContainer);
+           var textBox = $("<div class='textbox' contenteditable='true'></div>");
+           textBoxContainer.prepend(textBox);
+           var deleteButton = $("<button class='delete-button' onclick='$(this).parent().remove()'>X</button>");
+           textBoxContainer.append(deleteButton);
+           
+           textBoxContainer.draggable();
+
+           textBox.focus();
+            textBoxContainer.on('click', function() {
+                textBox.focus();
+            });
+
+           // Set focus on the new text box
+          //  contentEditable.focus();
+          
+          
+        });
+        
+            var textBox = $("<div class='textbox' contenteditable='true'></div>");
+            $(".image-container").prepend(textBox); // Append the new text box at the beginning of the container
+            textBox.css({ position: "relative" }); // Set position to relative for easy dragging
+            var deleteButton = $("<button class='delete-button' onclick='$(this).parent().remove()'>X</button>");
+            textBox.append(deleteButton);
+            deleteButton.css({ zIndex: 3 });
+            
+            textBox.draggable();
+
+            adjustDeleteButtonPosition(textBox, deleteButton); // Adjust the delete button position
+
+            textBox.focus(); // Set focus on the new text box
+            contentEditable.focus();
+        
+        $(document).ready(function() {
+    $("#add-textbox").click(function() {
+        var textBox = $("<div class='textbox'></div>");
+        $(".image-container").prepend(textBox); // Append the new text box at the beginning of the container
+        textBox.css({ position: "relative" }); // Set position to relative for easy dragging
+
+        var contentEditable = $("<div contenteditable='true'></div>");
+        textBox.append(contentEditable);
+
+        var deleteButton = $("<button class='delete-button' onclick='$(this).parent().remove()'>X</button>");
+        textBox.append(deleteButton);
+
+        deleteButton.css({ zIndex: 3 }); // Ensure delete button appears above the contenteditable area
+
+        textBox.draggable();
+
+        adjustDeleteButtonPosition(textBox, deleteButton); // Adjust the delete button position
+
+        contentEditable.focus(); // Set focus on the new text box
+    });
+});
+                   $("#save-image").click(function() {
+            var imageData = captureImage(); // Capture the edited image
+
+            // Check if an image is uploaded
+            if (!imageData) {
+                $("#messageBox").text("Error: No image uploaded.").removeClass().addClass('error').fadeIn();
+                return;
+            }
+
+            var adno = "<?php echo $adno; ?>"; // Get the ADNO from PHP
+
+            // Send the captured image data and ADNO to the server for saving
+            $.ajax({
+                url: "save_image.php",
+                method: "POST",
+                data: { adno: adno, imageData: imageData },
+                success: function(response) {
+                    $("#messageBox").text(response).removeClass().addClass('success').fadeIn();
+                    setTimeout(function() {
+                        $("#messageBox").fadeOut();
+                    }, 5000);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    $("#messageBox").text("Error: " + error).removeClass().addClass('error').fadeIn();
+                    setTimeout(function() {
+                        $("#messageBox").fadeOut();
+                    }, 5000);
+                }
+            });
+        });
+
+        // Adjust the delete button position
+        function adjustDeleteButtonPosition(textBox, deleteButton) {
+            var textBoxWidth = textBox.width();
+            var deleteButtonWidth = deleteButton.outerWidth();
+            deleteButton.css({ top: 0, right: -(deleteButtonWidth / 2) });
+        }
+
+ 
+      // Function to capture the edited image
+        function captureImage() {
+            // Create a canvas element
+            var canvas = document.createElement("canvas");
+            // Get the 2D rendering context of the canvas
+            var ctx = canvas.getContext("2d");
+
+            // Get the uploaded image element
+            var image = $("#uploaded-image")[0];
+            // Get the container element that holds the image
+            var container = $(".image-container")[0];
+
+            // Set the canvas dimensions to match the size of the container
+            // This ensures that the canvas will capture the entire displayed image
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+
+            // Draw the image onto the canvas
+            // Use the canvas width and height to ensure the entire image is captured
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            // Draw the text boxes onto the canvas
+            $(".textbox").each(function() {
+                var $textBox = $(this);
+                var left = $textBox.position().left;
+                var top = $textBox.position().top;
+                var width = $textBox.width();
+                var height = $textBox.height();
+                var text = $textBox.text();
+
+                // Set text style
+                ctx.font = "16px Arial";
+                ctx.fillStyle = "#000";
+                ctx.textAlign = "left";
+
+                // Draw text box content
+                ctx.fillText(text, left, top + height);
+
+                // Draw text box border (for visualization purposes)
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 1;
+                ctx.strokeRect(left, top, width, height);
+            });
+
+            // Convert the canvas to a data URL representing a PNG image
+            var imageData = canvas.toDataURL("image/png");
+
+            // Return the data URL containing the captured image
+            return imageData;
+        }
+    });
+
+     
+    </script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#save-screenshot").click(function() {
+                // Get the image container element
+                var imageContainer = document.getElementById("image-container");
+
+                // Create a canvas element
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+
+                // Set canvas dimensions to match image container
+                canvas.width = imageContainer.offsetWidth;
+                canvas.height = imageContainer.offsetHeight;
+
+                // Draw image onto canvas
+                ctx.drawImage(imageContainer.querySelector("img"), 0, 0, canvas.width, canvas.height);
+
+                // Convert canvas to data URL
+                var imageDataURL = canvas.toDataURL("image/png");
+
+                // Create a temporary link element
+                var link = document.createElement("a");
+                link.download = "screenshot.png";
+                link.href = imageDataURL;
+
+                // Trigger download
+                link.click();
+            });
+        });
+    </script>
